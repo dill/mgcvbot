@@ -1,5 +1,7 @@
 # update @mgcv_changelog
 library(stringr)
+library(rtoot)
+
 # pull change log
 cl_txt <- readLines("https://cran.r-project.org/web/packages/mgcv/ChangeLog")
 cl <- cl_txt
@@ -46,6 +48,9 @@ for(ii in seq_along(cl)){
                        this_tweet,
                        "' /1.1/statuses/update.json",
                        stdout=TRUE)
+
+  post_toot(status = this_tweet)
+
 }
 
 writeLines(cl_txt, con="ChangeLog")
