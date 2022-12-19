@@ -37,17 +37,17 @@ cl <- cl[-1]
 
 for(ii in seq_along(cl)){
   # build a tweet
-  this_tweet <- paste0(this_version, ": ",
+  this_tweet <- paste0(cl_version, ": ",
                        paste0(cl[ii], collapse=" "))
   # debug
   #cat(str_trunc(this_tweet, 280), "\n")
 
-  # post the tweet
-  fuzzy_dog <- system2("/usr/local/bin/twurl",
-                       "-d 'status=",
-                       this_tweet,
-                       "' /1.1/statuses/update.json",
-                       stdout=TRUE)
+#  # post the tweet
+#  fuzzy_dog <- system2("/usr/local/bin/twurl",
+#                       "-d 'status=",
+#                       this_tweet,
+#                       "' /1.1/statuses/update.json",
+#                       stdout=TRUE)
 
   post_toot(status = this_tweet)
 
