@@ -6,6 +6,11 @@ library(rtoot)
 cl_txt <- readLines("https://cran.r-project.org/web/packages/mgcv/ChangeLog")
 cl <- cl_txt
 
+# to create the token
+#auth_setup(browser=FALSE, path="rtoot_token.rds")
+# get token
+token <- readRDS("rtoot_token.rds")$bearer
+
 # read the last changelog that we saved
 old <- readLines("ChangeLog")
 
@@ -49,8 +54,7 @@ for(ii in seq_along(cl)){
 #                       "' /1.1/statuses/update.json",
 #                       stdout=TRUE)
 
-  post_toot(status = this_tweet)
-
+  post_toot(status = this_tweet, token=token)
 }
 
 writeLines(cl_txt, con="ChangeLog")
