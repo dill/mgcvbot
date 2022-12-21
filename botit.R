@@ -11,6 +11,11 @@ token <- readRDS("rtoot_token.rds")
 cl_txt <- readLines("https://cran.r-project.org/web/packages/mgcv/ChangeLog")
 cl <- cl_txt
 
+# to create the token
+#auth_setup(browser=FALSE, path="rtoot_token.rds")
+# get token
+token <- readRDS("rtoot_token.rds")$bearer
+
 # read the last changelog that we saved
 old <- readLines("ChangeLog")
 
@@ -42,7 +47,7 @@ cl <- cl[-1]
 
 for(ii in seq_along(cl)){
   # build a tweet
-  this_tweet <- paste0(this_version, ": ",
+  this_tweet <- paste0(cl_version, ": ",
                        paste0(cl[ii], collapse=" "))
   # debug
   #cat(str_trunc(this_tweet, 280), "\n")
@@ -55,7 +60,6 @@ for(ii in seq_along(cl)){
                        stdout=TRUE)
 
   post_toot(status = this_tweet, token=token)
-
 }
 
 writeLines(cl_txt, con="ChangeLog")
